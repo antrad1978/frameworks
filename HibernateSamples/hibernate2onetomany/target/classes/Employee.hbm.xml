@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="hibernate2.Employee" table="employee">
+      <meta attribute="class-description">
+         This class contains the employee detail. 
+      </meta>
+      <id name="id" type="int" column="id">
+         <generator class="native"/>
+      </id>
+      <property name="firstName" column="firstName" type="string"/>
+      <property name="lastName" column="lastName" type="string"/>
+      <property name="salary" column="salary" type="int"/>
+      
+      <list name="jobs" cascade="all" table="employee_jobs">
+      	<key column="employee_id" not-null="true"></key>
+      	<list-index column="idx"/>
+      	<one-to-many class="hibernate2.Job"/>
+      </list>
+   </class>
+   
+   <class name="hibernate2.Job" table="employee_jobs">
+   	<id name="jobId" type="int" column="jobId">
+    	<generator class="native"/>
+    </id>
+    <property name="description" column="description" type="string"/>
+   </class>
+</hibernate-mapping>
